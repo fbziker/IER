@@ -35,3 +35,6 @@ Mean_week_2019_om = mean distance per day over the whole week in 2019
 Mean_week_2020_om = mean           ''                      '' in 2020
 
 D = deviation between measured steps of omron vs. the app
+
+##Running the code
+Make sure that in line 23 of both scripts 'tbl =' refers to the directory were Data_IER.csv is saved.
