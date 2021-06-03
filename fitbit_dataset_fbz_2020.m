@@ -122,9 +122,11 @@ CSV = [total_steps,mean_person,bmi]
 M_app_day = [M_1_app,M_2_app,M_3_app,M_4_app,M_5_app,M_6_app,M_7_app]
 M_om_day = [M_1_om,M_2_om,M_3_om,M_4_om,M_5_om,M_6_om,M_7_om]
 X=1:1:7;
-scatter(X,M_app_day)
+scatter(X,M_app_day,'*','r')
 hold on
-scatter(X,M_om_day)
+scatter(X,M_om_day,'o','b')
 title('Steps per day, omron vs. app')
 xlabel('Day')
 ylabel('Average amount of steps per day')
+
+%NOTE: plots of results were made with pgfplots in latex

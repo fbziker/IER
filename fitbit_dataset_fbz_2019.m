@@ -113,3 +113,7 @@ M_BMI = mean(bmi, 'omitnan');
 X = 1:1:7;
 M_om_tot = [M_1_om,M_2_om,M_3_om,M_4_om,M_5_om,M_6_om,M_7_om]
 M_app_tot = [M_1_app,M_2_app,M_3_app,M_4_app,M_5_app,M_6_app,M_7_app]
+plot(X,M_om_tot,'-o')
+hold on
+plot(X,M_app_tot,'-p')
+%plots were made with pgfplots package in latex
