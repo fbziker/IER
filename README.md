@@ -5,7 +5,7 @@ Updated version was uploaded 3/6/21
 Both files read the Data_IER.csv file, one reads the data of participants in 2019, one of 2020.
 For question, please send an e-mail to f.bziker@student.tudelft.nl
 
-#Methodological information
+## Methodological information
 
 First year student of the EUR were given an omron device for one week in 2019 (prior to covid-19 lockdown) and 2020. With this device, the amount of steps taken per student per day were monitored. 
 For the purpose of this study, matlab version 2020b is used.
@@ -36,5 +36,5 @@ Mean_week_2020_om = mean           ''                      '' in 2020
 
 D = deviation between measured steps of omron vs. the app
 
-##Running the code
+## Running the code
 Make sure that in line 23 of both scripts 'tbl =' refers to the directory were Data_IER.csv is saved.
