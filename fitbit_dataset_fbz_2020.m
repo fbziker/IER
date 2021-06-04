@@ -1,5 +1,6 @@
 %% prepare matlab
 clear all
+close all
 clc 
 %% Set up the Import Options and import the data
 opts = delimitedTextImportOptions("NumVariables", 103);
@@ -20,7 +21,7 @@ opts.EmptyLineRule = "read";
 opts = setvaropts(opts, ["gender", "living", "tijd_zit1_min", "systeem", "comment_app_1", "comment_app_2", "comment_app_3", "comment_app_4", "comment_app_5", "comment_app_6", "comment_app_7", "reden_1", "reden_2", "reden_3", "reden_4", "reden_5", "reden_6", "reden_7", "locatie_1", "locatie_2", "locatie_3", "locatie_4", "locatie_5", "locatie_6", "locatie_7", "tijd_zwa2_min", "tijd_zit2_min", "wear_1", "wear_2", "wear_3", "wear_4", "wear_5", "wear_6", "wear_7"], "EmptyFieldRule", "auto");
 
 % Import the data
-tbl = readtable("C:\Users\farah\OneDrive\Documenten\Master jaar 1\Q4\Introduction into research engineering\2020\Data_IER.csv", opts);
+tbl = readtable("C:\Users\farah\OneDrive\Documenten\Master jaar 1\Q4\Introduction into research engineering\Dataset_farah\Data_IER.csv", opts);
 
 %% Convert to output type
 ID = tbl.ID;
@@ -115,16 +116,45 @@ M_BMI = mean(bmi, 'omitnan');
 MEAN = [M_tot_om;M_tot_app;Mean_week_2020_om;Mean_week_2020_app;M_BMI]
 %% steps per person
 total_steps = stap_om_1_aantal+stap_om_2_aantal+stap_om_3_aantal+stap_om_4_aantal+stap_om_5_aantal+stap_om_6_aantal+stap_om_7_aantal;
-all_steps = [stap_om_1_aantal,stap_om_2_aantal,stap_om_3_aantal,stap_om_4_aantal,stap_om_5_aantal,stap_om_6_aantal,stap_om_7_aantal]
+all_steps = [stap_om_1_aantal,stap_om_2_aantal,stap_om_3_aantal,stap_om_4_aantal,stap_om_5_aantal,stap_om_6_aantal,stap_om_7_aantal];
 mean_person = mean(all_steps,2, 'omitnan')
 CSV = [total_steps,mean_person,bmi]
+
+%% Statistical analysis
+T_om_20=stap_om_1_aantal+stap_om_2_aantal+stap_om_3_aantal+stap_om_4_aantal+stap_om_5_aantal+stap_om_6_aantal+stap_om_7_aantal;
+figure
+%histogram(T_om) (check distribution)
+
+pd1 = fitdist(T_om_20,'Normal');
+
+% plot of normpdf (uncomment to check)
+% x = 0:1000:100000;
+% figure
+% plot(normpdf(x,27991.1,12707.9))
+T_app_20 = stap_app_1_aantal+stap_app_2_aantal+stap_app_3_aantal+stap_app_4_aantal+stap_app_5_aantal+stap_app_6_aantal+stap_app_7_aantal;
+
+%histogram(T_app) (check distribution)
+
+pd2=fitdist(T_app_20,'Normal');
+
+disp('Statistical data Omron')
+disp(pd1)
+
+disp('Statistical data App')
+disp(pd2)
+
+n2 = length(T_om_20);
+%% saving variables for statistical analysis
+filename = 'fitbit_dataset_fbz_2020.mat';
+save(filename,'T_om_20','T_app_20')
+
 %% plots
-M_app_day = [M_1_app,M_2_app,M_3_app,M_4_app,M_5_app,M_6_app,M_7_app]
-M_om_day = [M_1_om,M_2_om,M_3_om,M_4_om,M_5_om,M_6_om,M_7_om]
+M_app_day = [M_1_app,M_2_app,M_3_app,M_4_app,M_5_app,M_6_app,M_7_app];
+M_om_day = [M_1_om,M_2_om,M_3_om,M_4_om,M_5_om,M_6_om,M_7_om];
 X=1:1:7;
-scatter(X,M_app_day,'*','r')
+scatter(X,M_app_day,'*','k')
 hold on
-scatter(X,M_om_day,'o','b')
+scatter(X,M_om_day,'o','k')
 title('Steps per day, omron vs. app')
 xlabel('Day')
 ylabel('Average amount of steps per day')

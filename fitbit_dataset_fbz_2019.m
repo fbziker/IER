@@ -1,5 +1,6 @@
 %% prepare matlab
 clear all
+close all
 clc 
 %% Set up the Import Options and import the data
 opts = delimitedTextImportOptions("NumVariables", 103);
@@ -20,7 +21,7 @@ opts.EmptyLineRule = "read";
 opts = setvaropts(opts, ["gender", "living", "tijd_zit1_min", "systeem", "comment_app_1", "comment_app_2", "comment_app_3", "comment_app_4", "comment_app_5", "comment_app_6", "comment_app_7", "reden_1", "reden_2", "reden_3", "reden_4", "reden_5", "reden_6", "reden_7", "locatie_1", "locatie_2", "locatie_3", "locatie_4", "locatie_5", "locatie_6", "locatie_7", "tijd_zwa2_min", "tijd_zit2_min", "wear_1", "wear_2", "wear_3", "wear_4", "wear_5", "wear_6", "wear_7"], "EmptyFieldRule", "auto");
 
 % Import the data
-tbl = readtable("C:\Users\farah\OneDrive\Documenten\Master jaar 1\Q4\Introduction into research engineering\Data_IER.csv", opts);
+tbl = readtable("C:\Users\farah\OneDrive\Documenten\Master jaar 1\Q4\Introduction into research engineering\Dataset_farah\Data_IER.csv", opts);
 
 %% Convert to output type
 ID = tbl.ID;
@@ -107,13 +108,37 @@ M_om = [stap_om_1_aantal, stap_om_2_aantal, stap_om_3_aantal, stap_om_4_aantal, 
 M_app = [stap_app_1_aantal, stap_app_2_aantal, stap_app_3_aantal, stap_app_4_aantal, stap_app_5_aantal, stap_app_6_aantal, stap_app_7_aantal];
 D = M_om-M_app;
 M_D = abs(mean(D,'all', 'omitnan'))
-%% other
-M_BMI = mean(bmi, 'omitnan');
+
+%% Statistical analysis
+T_om_19=stap_om_1_aantal+stap_om_2_aantal+stap_om_3_aantal+stap_om_4_aantal+stap_om_5_aantal+stap_om_6_aantal+stap_om_7_aantal;
+
+%histogram(T_om) to check distribution
+pd1 = fitdist(T_om_19,'Normal');
+
+T_app_19 = stap_app_1_aantal+stap_app_2_aantal+stap_app_3_aantal+stap_app_4_aantal+stap_app_5_aantal+stap_app_6_aantal+stap_app_7_aantal;
+
+
+%histogram(T_app)to check distribution
+pd2=fitdist(T_app_19,'Normal');
+
+n1 = length(T_om_19);
+
+disp('Statistical data Omron')
+disp(pd1)
+
+disp('Statistical data App')
+disp(pd2)
+
+disp(n1)
+
+%% saving variables for statistical analysis
+filename = 'fitbit_dataset_fbz_2019.mat';
+save(filename,'T_om_19', 'T_app_19')
 %% plots
-X = 1:1:7;
-M_om_tot = [M_1_om,M_2_om,M_3_om,M_4_om,M_5_om,M_6_om,M_7_om]
-M_app_tot = [M_1_app,M_2_app,M_3_app,M_4_app,M_5_app,M_6_app,M_7_app]
-plot(X,M_om_tot,'-o')
-hold on
-plot(X,M_app_tot,'-p')
-%plots were made with pgfplots package in latex
+% X = 1:1:7;
+% M_om_tot = [M_1_om,M_2_om,M_3_om,M_4_om,M_5_om,M_6_om,M_7_om]
+% M_app_tot = [M_1_app,M_2_app,M_3_app,M_4_app,M_5_app,M_6_app,M_7_app]
+% plot(X,M_om_tot,'-o',)
+% hold on
+% plot(X,M_app_tot,'-p',)
+% %plots were made with pgfplots package in latex
