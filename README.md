@@ -1,8 +1,9 @@
 # IER
-Updated version was uploaded 3/6/21
+Updated version was uploaded 4/6/21
 
 
 Both files read the Data_IER.csv file, one reads the data of participants in 2019, one of 2020.
+NOTE: please run the fitbit_dataset_fbz files first, it saves some variables to a .mat file, which is used in the statistical analysis (in a separate script).
 For question, please send an e-mail to f.bziker@student.tudelft.nl
 
 ## Methodological information
@@ -36,5 +37,9 @@ Mean_week_2020_om = mean           ''                      '' in 2020
 
 D = deviation between measured steps of omron vs. the app
 
+## CI and pvalue
+calculates relevant statistical data
+
 ## Running the code
 Make sure that in line 23 of both scripts 'tbl =' refers to the directory were Data_IER.csv is saved.
+Also, make sure everything is saved in 1 folder.
